@@ -11,8 +11,11 @@
 //   4、假如还有下一页数据 来加载下一页数据
 //      1、当前页面++
 //      2、重新发送请求
-//      1、数据请求回来 要对data中的数组拼接
-
+//      1、数据请求回来 要对data中的数组拼接 而不是全部替换！！！
+// 2  下拉刷新页面
+//    1、触发下拉刷新事件 需要再页面的josn
+//    2、重置 数据 数组
+//    3 重置页面  设置为1
 import { request } from "../../request/index.js"
 Page({
 
@@ -65,8 +68,8 @@ Page({
     this.totalPages = Math.ceil(total / this.QueryParams.pagesize);
     // console.log(this.totalPages);
     this.setData({
-      // 拼接的数组
-      goods_list: [...this.data.goodsList, ...res.goods]
+      // 拼接的数组 
+      goods_list: [...this.data.goods_list, ...res.goods]
     })
 
   },
@@ -87,11 +90,14 @@ Page({
   onReachBottom() {
     if (this.QueryParams.pagenum >= this.totalPages) {
       // 没有下一页数据了
-      console.log(没有下一页数据了);
+      wx.showToast({
+        title: '没有下一页数据了！',
+      });
     } else {
+      // 还有下一页数据
       this.QueryParams.pagenum++;
       this.getGoodsList();
     }
-  }
+  },
 
 })
