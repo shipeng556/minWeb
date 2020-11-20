@@ -2,7 +2,7 @@ import { request } from "../../request/index.js"
 Page({
 
   /**
-   * 页面的初始数据 
+   * 页面的初始数据
    */
   data: {
     // 左侧的菜单数据

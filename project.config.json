@@ -36,7 +36,7 @@
   },
   "compileType": "miniprogram",
   "libVersion": "2.12.2",
-  "appid": "wx4765ba01ea1337f6",
+  "appid": "wxa834836572e01b83",
   "projectname": "miniweb",
   "debugOptions": {
     "hidedInDevtools": []
@@ -47,27 +47,21 @@
   "simulatorPluginLibVersion": {},
   "condition": {
     "search": {
-      "current": -1,
       "list": []
     },
     "conversation": {
-      "current": -1,
       "list": []
     },
     "plugin": {
-      "current": -1,
       "list": []
     },
     "game": {
-      "current": -1,
       "list": []
     },
     "gamePlugin": {
-      "current": -1,
       "list": []
     },
     "miniprogram": {
-      "current": -1,
       "list": [
         {
           "id": -1,
@@ -88,6 +82,13 @@
           "name": "商品列表",
           "pathName": "pages/goods_list/index",
           "query": "cid=10",
+          "scene": null
+        },
+        {
+          "id": 3,
+          "name": "商品详情",
+          "pathName": "pages/goods_detail/index",
+          "query": "goods_id=9832",
           "scene": null
         }
       ]
