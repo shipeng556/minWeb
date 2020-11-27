@@ -36,7 +36,7 @@
   },
   "compileType": "miniprogram",
   "libVersion": "2.12.2",
-  "appid": "wxa834836572e01b83",
+  "appid": "wx0a51f3a99a575797",
   "projectname": "miniweb",
   "debugOptions": {
     "hidedInDevtools": []
@@ -89,6 +89,17 @@
           "name": "购物车",
           "pathName": "pages/cart/index",
           "query": "",
+          "scene": null
+        },
+        {
+          "name": "支付",
+          "pathName": "pages/pay/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "授权登录",
+          "pathName": "pages/auth/index",
           "scene": null
         }
       ]

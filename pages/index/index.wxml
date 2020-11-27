@@ -21,7 +21,7 @@
             </swiper-item>
         </swiper>
     </view>
-    <!-- 轮播图 结束 -->
+    <!-- 轮播图 结束 -->    
     <!-- 导航 开始 -->
     <view class="index_cate">
         <navigator wx:for="{{cartsList}}" wx:key="name">

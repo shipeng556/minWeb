@@ -42,14 +42,21 @@
 //      2 "-"  "-1"
 //   2 传递被点击的商品id goods_id
 //   3 获取data中的购物车数组 来获取需要被修改的商品对象
+//   4 当购物车的数量 =1 同时 用户点击 “-” 弹窗提示（shoeModel）询问用户 是否删除
+//     1 确定 直接删除   2 取消 什么都不做
 //   4 直接修改商品对象的数量 num
 //   5 把cart 数组 重新设置回缓存中 和data中   然后 this.setCart();
-
+// 9 点击结算
+//   1 判断有没有收获地址信息
+//   2 判断用户有没有选购商品
+//   3 经以上的验证 跳转到支付页面
 
 import {
   getSetting,
   chooseAddress,
-  openSetting
+  openSetting,
+  showModal,
+  showToast
 } from "../../utils/asyncWx"
 Page({
   data: {
@@ -188,7 +195,7 @@ Page({
 
   },
   // 商品数量的编辑功能
-  handleItemNumEidt(e) {
+  async handleItemNumEidt(e) {
     // 1 
     const {
       operation,
@@ -200,12 +207,63 @@ Page({
     } = this.data;
     // 3 找到需要修改的商品的索引 index
     let index = cart.findIndex(v => v.goods_id === id);
-    // 4 进行修改数量
-    cart[index].num += operation;
-    // 5 设置回缓存和data中
-    this.setCart(cart);
+    if (cart[index].num === 1 && operation === -1) {
+      // wx.showModal({
+      //   title: '提示',
+      //   content: '是否删除该商品！',
+      //   success: (res) => {
+      //     if (res.confirm) {
+      //       cart.splice(index, 1);
+      //       this.setCart(cart);
+      //     } else if (res.cancel) {
+      //       console.log('用户点击取消')
+      //     }
+      //   }
+      // })
+      const res = await showModal({
+        content: "您是否要删除该商品？"
+      })
+      if (res.confirm) {
+        cart.splice(index, 1);
+        this.setCart(cart);
+      }
+    } else {
+      // 4 进行修改数量
+      cart[index].num += operation;
+      // 5 设置回缓存和data中
+      this.setCart(cart);
+
+    }
+
+
+
+
+  },
+  // 点击 结算
+  async handlePay() {
+    // 1 判断收获地址
+    const {
+      address,
+      totalNum
+    } = this.data;
+    if (!address.userName) {
+      await showToast({
+        title: "您还没有选择收获地址！"
+      });
+      return;
+    }
+    // 2 判断用户有没有选购商品
+    if (totalNum === 0) {
+      await showToast({
+        title: "您还没有选购商品！"
+      });
+      return;
+    }
+    // 3 跳转到支付页面
+    wx.navigateTo({
+      url: '/pages/pay/index',
+    });
 
   }
-
 
 })
