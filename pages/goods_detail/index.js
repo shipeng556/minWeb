@@ -9,31 +9,40 @@
 //   4 已经存在 修改商品数据 执行购物车数量++ 重新把购物车数组 填充会缓存中
 //   5 不存在于购物车的数组中 直接给购物车数组添加一个新元素 新元素 带上购买 数量属性 num 重新把购物车数组 填充会缓存中
 //   6 弹出提示
+// 4 商品收藏
+//   1 页面onShow的时候 加载缓存中的商品收藏的数据
+//   2 判断当前商品是不是被收藏
+//     1 是 改变页面的图标
+//     2 不是 。。。
+//   3 点击商品收藏按钮
+//     1 判断该商品是否存在于缓存数组中
+//     2 已经存在 把该商品删除
+//     3 没有存在 把商品添加到收藏数组中 存入到缓存中即可
 
 import {
   request
 } from "../../request/index.js"
 Page({
-
-  /**
-   * 页面的初始数据
-   */
   data: {
     goodsObj: {},
+    // 商品是否被收藏
+    isCollect:false
 
   },
   // 商品对象
   goodsInfo: {},
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
+  onShow: function () {
+    let pages = getCurrentPages();
+    let curPages = pages[pages.length - 1];
+    let options = curPages.options;
     const {
       goods_id
     } = options;
     console.log(goods_id);
     this.getGoodsDetail(goods_id);
+
+
 
   },
   // 获取商品详情的数据
@@ -45,6 +54,10 @@ Page({
       }
     })
     this.goodsInfo = goodsObj;
+    // 1 获取缓存中的商品数组
+    let collect = wx.getStorageSync("collect");
+    // 2 判断当前商品是否收藏
+    let isCollect = collect.some(v => v.goods_id === this.goodsInfo.goods_id);
     this.setData({
       goodsObj: {
         goods_name: goodsObj.goods_name,
@@ -54,7 +67,8 @@ Page({
         // 临时自己改 确保后台存在 1.webp =》 1.jpg
         goods_introduce: goodsObj.goods_introduce,
         pics: goodsObj.pics
-      }
+      },
+      isCollect
     })
   },
   // 点击轮播图 放大预览

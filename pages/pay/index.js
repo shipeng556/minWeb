@@ -70,9 +70,7 @@ Page({
       }
       // 3 创建订单
       // 3.1 准备 请求头参数
-      const header = {
-        Authorization: token
-      };
+      // const header = { Authorization: token };
       // 3.2 准备 请求体参数
       const order_price = this.data.totalPrice;
       const consignee_addr = this.data.address.all;
@@ -94,8 +92,7 @@ Page({
       } = await request({
         url: "/my/orders/create",
         method: "POST",
-        data: orderParams,
-        header
+        data: orderParams
       })
       console.log(order_number);
       // 5 发起 预支付接口
@@ -106,8 +103,7 @@ Page({
         method: "POST",
         data: {
           order_number
-        },
-        header
+        }
       });
       console.log(pay);
       // 6 发起微信支付
@@ -118,13 +114,17 @@ Page({
         method: "POST",
         data: {
           order_number
-        },
-        header
+        }
       });
       await showToast({
         title: "支付成功！"
       })
-      // 8 支付成功 跳转到订单页面
+      // 8 手动删除缓存中 已经支付成功的商品
+      let newCart = wx.getStorageSync("cart");
+      newCart = newCart.filter(v => !v.checked);
+      wx.setStorageSync("cart", newCart);
+
+      // 9 支付成功 跳转到订单页面
       wx.navigateTo({
         url: '/pages/order/index',
       });
