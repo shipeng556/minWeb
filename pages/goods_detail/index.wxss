@@ -38,6 +38,9 @@ page {
   align-items: center;
   border-left: 1rpx solid #000;
 }
+.goods_name_row .goods_collect .icon-shoucang {
+  color: orangered;
+}
 .goods_info .goods_info_title {
   font-size: 32rpx;
   font-weight: 600;
@@ -77,7 +80,7 @@ page {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: aqua;
+  background-color: #fcc40f;
   font-size: 30rpx;
   font-weight: 600;
   color: #fff;
@@ -88,7 +91,7 @@ page {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: #c25d0b;
+  background-color: var(--themeColor);
   font-size: 30rpx;
   font-weight: 600;
   color: #fff;

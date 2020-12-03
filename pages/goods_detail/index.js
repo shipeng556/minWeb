@@ -26,7 +26,7 @@ Page({
   data: {
     goodsObj: {},
     // 商品是否被收藏
-    isCollect:false
+    isCollect: false
 
   },
   // 商品对象
@@ -55,7 +55,7 @@ Page({
     })
     this.goodsInfo = goodsObj;
     // 1 获取缓存中的商品数组
-    let collect = wx.getStorageSync("collect");
+    let collect = wx.getStorageSync("collect") || [];
     // 2 判断当前商品是否收藏
     let isCollect = collect.some(v => v.goods_id === this.goodsInfo.goods_id);
     this.setData({
@@ -108,5 +108,46 @@ Page({
       mask: true,
     });
   },
+  // 点击 商品收藏图标
+  handleCollect() {
+    let isCollect = false;
+    // 1 获取缓存中的商品收藏数组
+    let collect = wx.getStorageSync("collect") || [];
+    // 2 判断该商品是否被收藏过
+    let index = collect.findIndex(v => v.goods_id === this.goodsInfo.goods_id);
+    // 3 当index=-1 表示已经收藏过
+    if (index !== -1) {
+      // 能找到 已经收藏过了 在数组中删除
+      collect.splice(index, 1);
+      isCollect = false;
+      wx.showToast({
+        title: '取消成功',
+        icon: 'successs',
+        mask: true,
+      });
+    } else {
+      // 没有收藏过
+      collect.push(this.goodsInfo);
+      isCollect = true;
+      wx.showToast({
+        title: '收藏成功',
+        icon: 'successs',
+        mask: true,
+      });
+    }
+    //  5 把数组存入到缓存中
+    wx.setStorageSync("collect", collect);
+    //  6 修改data中的属性  isCollect
+    this.setData({
+      isCollect
+    })
+
+
+
+
+
+
+
+  }
 
 })
