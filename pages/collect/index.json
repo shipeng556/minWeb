@@ -1,6 +1,6 @@
 {
   "usingComponents": {
-    "Tabs": "../../components/SearchInput/Tabs/Tabs"
+    "Tabs": "../../components/Tabs/Tabs"
   },
   "navigationBarTitleText": "收藏"  
 }

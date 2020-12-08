@@ -1,15 +1,9 @@
 <view class="search_row">
-    <input type="text" placeholder="请输入您要搜索的商品" />
-    <button>取消</button>
+    <input type="text" value="{{inpValue}}" placeholder="请输入您要搜索的商品" bindinput="handleInput" />
+    <button bindtap="handleCancel" hidden="{{!isFocus}}">取消</button>
 </view>
 <view class="search_content">
-    <view class="search_item">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum pariatur, illo aspernatur ipsa quaerat modi odit voluptates ipsum aut enim harum magni necessitatibus repellendus obcaecati, sit accusantium culpa, minima dolorem.
-    </view>
-    <view class="search_item">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum pariatur, illo aspernatur ipsa quaerat modi odit voluptates ipsum aut enim harum magni necessitatibus repellendus obcaecati, sit accusantium culpa, minima dolorem.
-    </view>
-    <view class="search_item">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum pariatur, illo aspernatur ipsa quaerat modi odit voluptates ipsum aut enim harum magni necessitatibus repellendus obcaecati, sit accusantium culpa, minima dolorem.
-    </view>
+    <navigator url="/pages/goods_detail/index?goods_id={{item.goods_id}}" class="search_item" wx:for="{{goods}}" wx:key="goods_id">
+        {{item.goods_name}}
+    </navigator>
 </view>
