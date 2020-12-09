@@ -19,7 +19,9 @@
 //    3、重置页面  设置为1
 //    4、重新发送请求
 //    5、数据请求回来 需要手动的关闭 等待效果
-import { request } from "../../request/index.js"
+import {
+  request
+} from "../../request/index.js"
 Page({
 
   /**
@@ -27,19 +29,20 @@ Page({
    */
   data: {
     tabs: [{
-      id: 0,
-      value: "综合",
-      isActive: true
-    },
-    {
-      id: 1,
-      value: "销量",
-      isActive: false
-    }, {
-      id: 2,
-      value: "价格",
-      isActive: false
-    }],
+        id: 0,
+        value: "综合",
+        isActive: true
+      },
+      {
+        id: 1,
+        value: "销量",
+        isActive: false
+      }, {
+        id: 2,
+        value: "价格",
+        isActive: false
+      }
+    ],
     goods_list: [],
     nopicture: "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1599564517889&di=7daa5d8167a3d4d5a7f6c399f4238750&imgtype=0&src=http%3A%2F%2Fimages.669pic.com%2Felement_pic%2F3%2F88%2F77%2F52%2F63160fa6edcfde1b73bafadf9be77e8d.jpg",
   },
@@ -58,13 +61,17 @@ Page({
    */
   onLoad: function (options) {
     // console.log(options);
-    this.QueryParams.cid = options.cid;
+    this.QueryParams.cid = options.cid || "";
+    this.QueryParams.query = options.query || "";
     this.getGoodsList();
   },
 
   // 获取商品列表数据
   async getGoodsList() {
-    const res = await request({ url: "/goods/search", data: this.QueryParams });
+    const res = await request({
+      url: "/goods/search",
+      data: this.QueryParams
+    });
     // 获取 总条数
     const total = res.total;
     // 计算 总页数
@@ -82,9 +89,13 @@ Page({
   // 标题的点击事件 从子组件传递过来的
   handleTabsItemChange(e) {
     //1、获取被点击的标题索引
-    const { index } = e.detail;
+    const {
+      index
+    } = e.detail;
     // 2、修改源数组
-    let { tabs } = this.data;
+    let {
+      tabs
+    } = this.data;
     tabs.forEach((v, i) => i === index ? v.isActive = true : v.isActive = false);
     // 3、赋值到data中
     this.setData({
@@ -105,13 +116,13 @@ Page({
     }
   },
   // 下拉刷新事件
-  onPullDownRefresh(){
+  onPullDownRefresh() {
     // 1 重置数组
     this.setData({
       goods_list: []
     })
     // 2 重置页面
-    this.QueryParams.pagenum=1;
+    this.QueryParams.pagenum = 1;
     // 3 发送请求
     this.getGoodsList();
 
