@@ -21,7 +21,7 @@
     "checkSiteMap": true,
     "uploadWithSourceMap": true,
     "compileHotReLoad": false,
-    "useMultiFrameRuntime": false,
+    "useMultiFrameRuntime": true,
     "useApiHook": true,
     "babelSetting": {
       "ignore": [],
@@ -32,11 +32,13 @@
     "useCompilerModule": true,
     "userConfirmedUseCompilerModuleSwitch": false,
     "packNpmManually": false,
-    "packNpmRelationList": []
+    "packNpmRelationList": [],
+    "bundle": false,
+    "useApiHostProcess": false
   },
   "compileType": "miniprogram",
   "libVersion": "2.12.2",
-  "appid": "wx0a51f3a99a575797",
+  "appid": "wx42a54cf9b5a1bbe2",
   "projectname": "miniweb",
   "debugOptions": {
     "hidedInDevtools": []
